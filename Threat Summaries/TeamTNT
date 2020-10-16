@@ -1,0 +1,26 @@
+Back in April 2020 TrendMicro reported on researchers that found an open directory containing malicious files which when analyzed were found to be have a malicious cryptocurrency miner and DDoS bot that targets open Docker daemon ports. On August 17, 2020 the UK security firm Cado Security reported the group responsible for these operations is TeamTNT. According to the security firm, the group has changed its operations since first discovered in April to include attacking Kubernetes installations and the feature to scan underlying infected servers for AWS credentials.  
+When first discovered, TeamTNT would use the script "mxutzh.sh" to scan for open ports 2375, 2376, 2377, 4243, and 4244. When one has been discovered, the shell then creates an Alpine Linux container that acts as the host for their coinminer and DDoS bot. Once the container has been created, it will download init.sh that drops its other operating components. The script contains several other scripts: 
+
+clean.sh (searches for other coin miners and malware to clean and remove) 
+
+lan.ssh.kinsing.sh (attempts later movement with SSH) 
+
+NarrenKappe.sh (configures firewall to allow ports that will be used by its other pieces. The script also edits the /etc/hosts file to sinkhole other domain names and exfiltrates sensitive information). 
+
+setup.basics.sh (is used to ensure its other components have the utilities it needs installed on the system) 
+
+Setup.mytoys.sh (this script downloads the source code of a log cleaner and then compiles it. It also downloads another script which is used for post-exploitation in order to pivot to other devices in the network) 
+
+setup.xmrig.curl.sh. (this script downloads and installs its coinminer payload) 
+
+Dns (the Kaiten/Tsunami DDoS bot) 
+
+Another feature from this group includes using sysinfo to acquire various system information it reports back to its CnC server. The group also scans for /.aws/credentials and /.aws/config which it then copies and uploads to its CnC server. These files are unencrypted and contain plaintext credentials as well as configuration details for the underlying AWS account and its infrastructure.  
+
+TrendMicro recommends following best security practices to protect containers, including only allowing needed open ports, use web filtering and an IPS, limit access to only those who need it. f 
+Knowing how the team operates, the VerSprite team should check what ports are currently exposed and review whitelists. 
+
+If a container is thought to have been exposed, the following act as indicators of compromise: 
+
+Connections to 45.9.148.123, teamtnt.red, irc.kaiserfranz.cc 
+The files clean.sh, mxutzh.sh, NarrenKappe.sh, setup.mytoys.sh, setup.xmrig.curl.sh 
