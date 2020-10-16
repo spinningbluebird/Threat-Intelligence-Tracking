@@ -1,0 +1,9 @@
+In August a critical vulnerability was announced by Microsoft to be impacting Netlogin. Not much information was released at the time of this vulnerability. On September 11, 2020 the security company Secura published a whitepaper describing the details of CVE-2020-1472, also known as ZeroLogon. According to Microsoft, all Active Directory domain controllers are vulnerable and require installation of the August 2020 security patches. According to the whitepaper published by Secura, all that is needed to make connections with the domain controller is the ability to establish TCP connections (they don't require domain credentials, but they do require a foothold on the network). According to Microsoft, another patch will be released February 2021 which they warn may break some 3rd party devices or software. Secura has published a script to test domaon controllers for the ZeroLogon vulnerability. This tool can be found here https://github.com/SecuraBV/CVE-2020-1472.
+
+The bug takes advantage of a weak cryptographic algorithm that is used in Netlogon. According to Secura, the attack is done in five steps: 1) spoof the client credentials by setting the ClientCredential to all 0s, 2) disable signing and sealing by not setting a flag in the NetrServerAuthenticate3 call, 3) spoof a call by setting ComputeNetLogonCredential and the Timestamp to 0, 4) change the computer's active directory password by providing 516 zeroes to NetrServerPasswordSet2, 5) using a pass-the-hash attack update the DC's local registry in order to become domain admin.
+
+To summarize, setting fields in Netlogon during a call to all zeroes will allow an attacker to change the computer password of the domain controller and eventually become domain admin.
+
+In order to address this exploit, Active Directory servers will need to be patched with the August 2020 release.
+
+More technical details can be found here https://www.secura.com/pathtoimg.php?id=2055.
