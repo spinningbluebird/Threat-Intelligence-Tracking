@@ -1,0 +1,13 @@
+On August 3, 2020 CISA (Cybersecurity and Infrastructure Security Agency), DOD, and the FBI published an alert (https://us-cert.cisa.gov/ncas/analysis-reports/ar20-216a) warning US private companies about new versions of the Remote Access Trojan Taidoor. The malware was first seen 12 years ago in 2008 and again in 2012 and 2013. The three government agencies reported seeing Taidoor being used in new attacks against public and private organizations in the industries of research, manufacturing, and government institutions. According to the groups, the new Taidoor versions are running 32- and 64-bit versions and are usually installed on system's as a DLL (dynamic link library).  
+
+The DLL is reported to contain two files. According to the groups, "The first file is a loader which is started as a service. The loader decrypts the second file, and executes it in memory – which is main Remote Access Trojan".  
+
+Once the DLL is on the victim system, the RAT is used by Chinese hackers to access the systems and exfiltrate data or deploy malware. The FBI states that Taidoor is normally deployed with proxy servers in order to hide the malware operator's point of origin. The FBI has "high confidence" that Chinese actors are using the proxy servers to maintain their presence on the victim's system and further their network exploitations.  
+
+The loader file observed took the name of "ml.dll" (taking the name of a legitimate DLL file) or rasautoex.dll. When run, the file uses the export function "MyStart" to decrypt and then load "svchost.dll" (another legitimate DLL name). The DLL loaded was identified as being the Taidoor malware. After loading the malware, it then uses GetProcessHeap, GetProcAddress, and LoadLibrary API calls to load KERNEL32.dll, ADVAPI.dll, WS2_32.dll which are used by Taidoor.  
+
+After the DLLs have been loaded, the loader uses the export function "Start" in its svchost.dll which starts the process of decrypting import strings from the above-mentioned DLLs. Once its decryption process is finished  it tries to connect to its C2 server (cnaweb.mrslove.com, 210.68.69.82) where it begins its handshake process. After connecting with the C2, it creates a Windows INI configuration file where it copies cmd.exe into it.  
+
+CISA recommends following security best practices such as keeping Windows and antivirus solutions up-to-date, maintaining email hygiene, and disabling unnecessary services.  
+
+Traffic to be aware of should include requests to 210.68.69.82 (cnaweb.mrslove.com) and 156.238.3.162 (infonew.dubya.net) which are the C2 domains being used by Taidoor malware. Analysts should be aware of ml.dll making requests to svchost.dll and making API calls to KERNEL32.dll, ADVAPI.dll, WS2_32.dll. 
