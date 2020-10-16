@@ -19,3 +19,5 @@ Resource | Description
 [Malpedia](https://malpedia.caad.fkie.fraunhofer.de/) | An encyclopedia! For malware
 [Maltiverse](https://maltiverse.com/search) | IOC search engine
 
+## <h2> Threat Summaries
+  *This folder contains threats that I have written threat summaries on*
