@@ -1,0 +1,21 @@
+On September 2nd, 2020 Tencent Security published a report on a new mining Trojan family dubbed as MrbMiner that has infected thousands of MSSQL databases. The operators spread the botnet by scanning the internet for MSSQL servers and then performing brute force attacks, trying for the admin account using weak passwords. 
+
+ 
+
+The attack is broken into 3 phases. The first is the brute-force attack to get access to the server. The second part of the attack is downloading an assm.exe file which they use to establish persistence and adds a backdoor. Finally, the server is then connected to the actor's command and control server where an app used to mine Monero cryptocurrency is downloaded. 
+
+ 
+
+Known victims of the attack are MSSQL servers, however Tencent stated they found on the MrbMiner C&C server that there were variants of the malware written to target Linux and ARM-based systems. 
+
+ 
+
+If a server is suspected of compromise, the following act as indicators for this attack:
+
+ 
+
+Connections to the IP addresses 145.239.225.15 and 145.239.225.18
+Connections to the domains mrbfile.xyz and vihansoft.ir
+Presence of the account "Default/@fg125kjnhn987" (this is the backdoor account created)
+ 
+The full report by Tencent can be found here: https://s.tencent.com/research/report/1105.html
