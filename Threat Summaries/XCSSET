@@ -1,0 +1,11 @@
+August 13, 2020 TrendMicro released an analysis of the malware family XCSSET which affects Macs. The malware has been found in Xcode projects, which according to TrendMicro "leads to a rabbit hole of malicious payloads". The analysts are not yet sure how XCSSET infects Xcode, only that once embedded the malware runs when a project is built which leads to the malware being dropped and ran on the victim's system.  
+
+TrendMicro reports developers have shared their projects on GitHub, which they say "could result in a supply chain-like attack for users who rely on these repositories as dependencies in their own programs".  
+
+According to the analysis, XCSSET once ran affects browsers (including development version of Safari) and steals user information. Another vulnerability finds that when launching Safari WebKit, a bypass is then used to perform malicious operations including Dylib hijacking, as TrendMicro says. 
+
+The analysts are concerned that attackers can steal user information and modify browser sessions to display malicious websites, harvest credit card information, change cryptocurrency wallet addresses, and steal credentials from Apple ID, Google, Paypal and WeChat. Analysts report XCSSET is also capable of taking screenshots, exfiltrating data, and communicate with a C2 server. Finally, the analysts state that XCSSET malware also contains a ransomware module.  
+
+2 Xcode projects have so far been found in the wild, affecting 380 victim IPs (mainly located in China and India). TrendMicro states "affected developers will unwittingly distribute the malicious Trojan to their users in the form of a compromised Xcode project".  
+
+TrendMicro suggests developers triple check the integrity of their projects in order to nip unwarranted problems such as malware infection. As for victims of XCSSET malware, outgoing connections to https://adobestats.com, https://flixprice.com, "46.101.126.33" may indicate compromise as these are the C&C servers for XCSSET. When reviewing projects, analysts should look out for references to "xcassets" which is what is used to call the malware.  
